@@ -24,7 +24,7 @@
         "price" : 1.660,
         "iconURL" : "/img/results/sci-student.png",
         "color" : "red",
-        "joiner" : "and",
+        "joiner" : "or",
         "text" :   {
           "single" : "Protect someone from malaria for three to four years, on average.",
           "plural" : "Protect * people from malaria for three to four years, on average."
@@ -34,7 +34,7 @@
         "price" : 3337.000,
         "iconURL" : "/img/results/life-saved.png",
         "color" : "red",
-        "joiner" : "and",
+        "joiner" : "or",
         "text" :   {
           "single" : "Save * life, according to GiveWell.",
           "plural" : "Save * lives, according to GiveWell."
@@ -42,7 +42,7 @@
         }
       ]
     },
-  
+
     {
     "name" : "Evidence Action",
     "id" : "evidence-action",
