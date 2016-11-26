@@ -214,7 +214,7 @@ function calcImpact(charity, amount) {
     exchangeRate = 1 / geoplugin_currencyConverter(1, false);
     localisedAmount = amount * exchangeRate;
   } else {
-    localisedAmount = amount;
+    localisedAmount = amount * 0.75;
   }
 
   // Calculate usable donation
@@ -276,7 +276,7 @@ function writeCharity(charity, elements){
 function writeResults(charity, impacts, elements){
 
   var currencySymbol = '$',
-      currencyCode = 'USD';
+      currencyCode = 'AUD';
 
   if (typeof geoplugin_currencySymbol === 'function') {
     currencySymbol = geoplugin_currencySymbol();
@@ -357,7 +357,7 @@ $(function(){
   });
 
   // Localise currency symbol
-  var currencySymbol = '$';
+  var currencySymbol = 'A$';
   if (typeof geoplugin_currencySymbol === 'function') {
     $('<textarea />').html(geoplugin_currencySymbol()).text();
   }

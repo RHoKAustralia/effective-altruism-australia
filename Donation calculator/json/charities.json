@@ -13,7 +13,7 @@
     "pricePoints" :   [
         {
         "price" : 3.000,
-        "iconURL" : "/img/results/amf-net.png",
+        "iconURL" : "./img/results/amf-net.png",
         "color" : "green",
         "text" :   {
           "single" : "Provide a bednet to protect those living in malaria-stricken areas from infected mosquitos.",
@@ -22,9 +22,9 @@
         },
         {
         "price" : 1.660,
-        "iconURL" : "/img/results/sci-student.png",
+        "iconURL" : "./img/results/sci-student.png",
         "color" : "red",
-        "joiner" : "and",
+        "joiner" : "or",
         "text" :   {
           "single" : "Protect someone from malaria for three to four years, on average.",
           "plural" : "Protect * people from malaria for three to four years, on average."
@@ -32,9 +32,9 @@
         },
         {
         "price" : 3337.000,
-        "iconURL" : "/img/results/life-saved.png",
+        "iconURL" : "./img/results/life-saved.png",
         "color" : "red",
-        "joiner" : "and",
+        "joiner" : "or",
         "text" :   {
           "single" : "Save * life, according to GiveWell.",
           "plural" : "Save * lives, according to GiveWell."
@@ -42,48 +42,7 @@
         }
       ]
     },
-    {
-    "name" : "Development Media International",
-    "id" : "dmi",
-    "overhead" : 0.000,
-    "infoURL" : "http://www.thelifeyoucansave.org/Where-to-Donate/Development-Media-International",
-    "donateURL" : "http://www.givewell.org/international/top-charities/charities/DMI/donate",
-    "logo" : "e601",
-    "organization" : "Development Media International (DMI) uses radio and television to encourage healthy behaviors that save lives and reduce suffering in the world's poorest countries. <br/><br/> DMI's campaigns encourage people to take action against common causes of death like malaria, diarrhea and pneumonia with simple interventions such as washing hands, giving birth in health facilities, exclusively breast-feeding and making use of readily-available treatments for pneumonia and diarrhea. They also promote healthy lifestyle choices around topics such as family planning, HIV/AIDS and sanitation. One type of campaign involves realistic and sometimes humorous broadcasts written and performed by locals, followed by lively call-in discussions. DMI uses mass media because they believe it can break through cultural and generational norms and  is extremely cost-effective: broadcasting a radio message about regular hand-washing is a cheap way to reach thousands of people and encourage them to adopt this simple life-saving behavior. But they don’t rely on belief – DMI is currently testing the effectiveness of their methods in a large, rigorous randomized controlled <a href='http://www.developmentmedia.net/proving-impact' target='_blank'>trial</a> in Burkina Faso.",
-    "recommendation" : "DMI partners with leading health organizations focused on developing countries, such as the World Health Organization (WHO) and Every Mother Every Child.  DMI is funded by some of the world’s most prestigious scientific organizations, development agencies and philanthropic foundations, including the Bill and Melinda Gates Foundation, USAID and Planet Wheeler (founders of Lonely Planet Publications) and they are recommended as a “Standout Charity” by rigorous evaluator <a href='http://www.givewell.org/international/top-charities/DMI' target='_blank'>GiveWell <span class='ExternalLinkDrk'></span></a> and by <a href='https://www.givingwhatwecan.org/blog/2015-03-26/charity-update-i-development-media-international' target='_blank'>Giving What We Can <span class='ExternalLinkDrk'></span></a>.",
-    "numbers" : "In most developing countries, over 75% of people regularly listen to the radio or watch television. DMI has run successful large-scale media campaigns of 500 to 8,000 broadcasts each in over 30 countries. Using mathematical modeling, DMI calculates it costs them about $8.50 to provide a person with another year of healthy life and $255 to save the life of a person who would otherwise have died from preventable diseases. Their <a href='http://developmentmedia.net/feb-2015/dmi-publishes-rct-article-lancet' target='_blank'>scientifically developed model predicts a potential to reduce under-five deaths by up to 23%</a>. The notoriously prudent charity evaluator GiveWell <a href='http://www.givewell.org/international/top-charities/DMI'>estimates</a> the cost to save a child's life through DMI at about $5236.  These cost-effectiveness estimates include all of DMI’s overheads, which make up around 12.7% of their budget (5.3% external communications and fundraising and 7.4% qualitative research and monitoring).  Keep in mind that the <a href='http://overheadmyth.com/faqs/' target='_blank'>overhead ratio <span class='ExternalLinkDrk'></span></a> is not a direct measurement of charity effectiveness.",
-    "pricePoints" :   [
-        {
-        "price" : 8.500,
-        "iconURL" : "/img/results/psi-health.png",
-        "color" : "red",
-        "text" :   {
-          "single" : "Provide a year of healthy life to audiences of DMI's mass media campaigns.",
-          "plural" : "Provide * years of healthy life to audiences of DMI's mass media campaigns."
-          }
-        },
-        {
-        "price" : 255.000,
-        "iconURL" : "/img/results/psi-health.png",
-        "color" : "red",
-        "joiner" : "or",
-        "text" :   {
-          "single" : "Save the life of someone who would otherwise have died from preventable diseases, according to DMI’s mathematical modeling.",
-          "plural" : "Save * lives of those who would otherwise have died from preventable diseases, according to DMI’s mathematical modeling."
-          }
-        },
-        {
-        "price" : 7264.000,
-        "iconURL" : "/img/results/psi-health.png",
-        "color" : "red",
-        "joiner" : "or",
-        "text" :   {
-          "single" : "Save a life, according to the more conservative estimate calculated by charity evaluator GiveWell.",
-          "plural" : "Save * lives, according to the more conservative estimate calculated by charity evaluator GiveWell."
-          }
-        }
-      ]
-    },
+
     {
     "name" : "Evidence Action",
     "id" : "evidence-action",
@@ -97,7 +56,7 @@
     "pricePoints" :   [
         {
         "price" : 0.100,
-        "iconURL" : "/img/results/sci-student.png",
+        "iconURL" : "./img/results/sci-student.png",
         "color" : "red",
         "text" :   {
           "single" : "Deworm a child",
@@ -106,7 +65,7 @@
         },
         {
         "price" : 0.840,
-        "iconURL" : "/img/results/ea-water.png",
+        "iconURL" : "./img/results/ea-water.png",
         "color" : "blue",
         "joiner" : "or",
         "text" :   {
@@ -116,7 +75,7 @@
         },
         {
         "price" : 1.000,
-        "iconURL" : "/img/results/pif-interventions.png",
+        "iconURL" : "./img/results/pif-interventions.png",
         "color" : "green",
         "joiner" : "or",
         "text" :   {
@@ -139,7 +98,7 @@
     "pricePoints" :   [
         {
         "price" : 1.000,
-        "iconURL" : "/img/results/gd-household.png",
+        "iconURL" : "./img/results/gd-household.png",
         "color" : "green",
         "text" :   {
           "single" : "Provide one dollar directly to recipients to use as they wish. An independent impact evaluation has shown that GiveDirectly's cash transfers increase recipients' assets, food security and mental health.",
@@ -148,7 +107,7 @@
         },
         {
         "price" : 1000.000,
-        "iconURL" : "/img/results/gd-family.png",
+        "iconURL" : "./img/results/gd-family.png",
         "color" : "green",
         "joiner" : "or",
         "text" :   {
@@ -171,7 +130,7 @@
     "pricePoints" :   [
         {
         "price" : 0.800,
-        "iconURL" : "/img/results/dwti.png",
+        "iconURL" : "./img/results/dwti.png",
         "color" : "red",
         "text" :   {
           "single" : "Protect a child from schistosomiasis for one year, preventing life-threatening conditions including bladder cancer, kidney malfunction, spleen damage, and anaemia.",
