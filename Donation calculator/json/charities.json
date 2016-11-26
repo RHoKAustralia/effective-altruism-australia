@@ -13,7 +13,7 @@
     "pricePoints" :   [
         {
         "price" : 3.000,
-        "iconURL" : "/img/results/amf-net.png",
+        "iconURL" : "./img/results/amf-net.png",
         "color" : "green",
         "text" :   {
           "single" : "Provide a bednet to protect those living in malaria-stricken areas from infected mosquitos.",
