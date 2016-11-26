@@ -57,6 +57,17 @@ function donation_form_form($form, &$form_state) {
     '#value' => t('Submit'),
   );
 
+  $form['#attached']['js'] = array(
+    drupal_get_path('module', 'donation_form') . '/donation_form.js',
+    'https://cdn.pin.net.au/pin.v2.js' => array(
+      'type' => 'external',
+    )
+  );
+
+  $form['markup'] = array(
+    '#markup' => '<div class="errors" style="display:none"><h3></h3><ul></ul></div>',
+  );
+
   return $form;
 }
 
@@ -67,17 +78,35 @@ function donation_form_form_validate($form, &$form_state) {
 }
 
 function donation_form_form_submit($form, &$form_state) {
+
+//	drupal_set_message(t('Blah ' . $form_state['input']['card_token']));
+
   $gateway = Omnipay::create('Pin');
-  $gateway->setSecretKey('UsxOoKsJAKiPGvoZtXPjZw');
-  $gateway->purchase([
+  $gateway->initialize(array(
+    'secretKey' => 'UsxOoKsJAKiPGvoZtXPjZw',
+    'testMode'  => true, // Or false when you are ready for live transactions
+  ));
+  $response = $gateway->purchase([
     'email'       => 'customer@email.com',
     'description' => 'Widgets',
-    'amount'      => 4999,
-    'currency'    => 'USD',
-    'token'       => 'card_nytGw7koRg23EEp9NTmz9w',
+    'amount'      => '100.00',
+    'currency'    => 'AUD',
+    'token'       => $form_state['input']['card_token'],
     'ip_address'  => '1.2.3.4'
   ])->send();
 
-	drupal_set_message(t('Blah ' . $form_state['values']['amount_preset']));
+  if ($response->isSuccessful()) {
+      // payment was successful: update database
+//      print_r($response);
+	  drupal_set_message(t('Success'));
+  } elseif ($response->isRedirect()) {
+      // redirect to offsite payment gateway
+    $response->redirect();
+//	  drupal_set_message(t('redirect'));
+  } else {
+      // payment failed: display message to customer
+//    echo $response->getMessage();
+	  drupal_set_message(t('Fail' . $response->getMessage()));
+  }
 }
 ?>
