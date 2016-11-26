@@ -1,0 +1,112 @@
+<?php
+use Omnipay\Omnipay;
+
+function donation_form_menu() {
+  $items = array();
+
+  $items['examples/form-example'] = array( //this creates a URL that will call this form at "examples/form-example"
+    'title' => 'Example Form', //page title
+    'description' => 'A form to mess around with.',
+    'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
+    'page arguments' => array('donation_form_form'), //put the name of the form here
+    'access callback' => TRUE
+  );
+
+  return $items;
+}
+
+function donation_form_form($form, &$form_state) {
+
+ $form['first_name'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'First name',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['last_name'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Last name',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['email'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Email address',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+  $form['amount_preset'] = array(
+    '#type' => 'radios',
+    '#title' => t('Amount'),
+    '#options' => array(
+      t('$1'),
+      t('$5'),
+      t('$10'),
+      t('$50')
+    )
+  );
+
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  $form['#attached']['js'] = array(
+    drupal_get_path('module', 'donation_form') . '/donation_form.js',
+    'https://cdn.pin.net.au/pin.v2.js' => array(
+      'type' => 'external',
+    )
+  );
+
+  $form['markup'] = array(
+    '#markup' => '<div class="errors" style="display:none"><h3></h3><ul></ul></div>',
+  );
+
+  return $form;
+}
+
+function donation_form_form_validate($form, &$form_state) {
+//  if (!($form_state['values']['price'] > 0)){
+//    form_set_error('price', t('Price must be a positive number.'));
+//  }
+}
+
+function donation_form_form_submit($form, &$form_state) {
+
+//	drupal_set_message(t('Blah ' . $form_state['input']['card_token']));
+
+  $gateway = Omnipay::create('Pin');
+  $gateway->initialize(array(
+    'secretKey' => 'UsxOoKsJAKiPGvoZtXPjZw',
+    'testMode'  => true, // Or false when you are ready for live transactions
+  ));
+  $response = $gateway->purchase([
+    'email'       => 'customer@email.com',
+    'description' => 'Widgets',
+    'amount'      => '100.00',
+    'currency'    => 'AUD',
+    'token'       => $form_state['input']['card_token'],
+    'ip_address'  => '1.2.3.4'
+  ])->send();
+
+  if ($response->isSuccessful()) {
+      // payment was successful: update database
+//      print_r($response);
+	  drupal_set_message(t('Success'));
+  } elseif ($response->isRedirect()) {
+      // redirect to offsite payment gateway
+    $response->redirect();
+//	  drupal_set_message(t('redirect'));
+  } else {
+      // payment failed: display message to customer
+//    echo $response->getMessage();
+	  drupal_set_message(t('Fail' . $response->getMessage()));
+  }
+}
+?>
