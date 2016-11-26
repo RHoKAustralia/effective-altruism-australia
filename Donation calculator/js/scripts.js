@@ -22,7 +22,7 @@ $(function() {
             if (!console[method]) {
               console[method] = noop;
           }
-      }
+      } 
 
     // Extend jQuery .on() & .bind() handlers with delay argument, for smooth resizing
     // Usage = .on('resize', function(){}, 100);
