@@ -1,0 +1,83 @@
+<?php
+use Omnipay\Omnipay;
+
+function donation_form_menu() {
+  $items = array();
+
+  $items['examples/form-example'] = array( //this creates a URL that will call this form at "examples/form-example"
+    'title' => 'Example Form', //page title
+    'description' => 'A form to mess around with.',
+    'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
+    'page arguments' => array('donation_form_form'), //put the name of the form here
+    'access callback' => TRUE
+  );
+
+  return $items;
+}
+
+function donation_form_form($form, &$form_state) {
+
+ $form['first_name'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'First name',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['last_name'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Last name',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['email'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Email address',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+  $form['amount_preset'] = array(
+    '#type' => 'radios',
+    '#title' => t('Amount'),
+    '#options' => array(
+      t('$1'),
+      t('$5'),
+      t('$10'),
+      t('$50')
+    )
+  );
+
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+function donation_form_form_validate($form, &$form_state) {
+//  if (!($form_state['values']['price'] > 0)){
+//    form_set_error('price', t('Price must be a positive number.'));
+//  }
+}
+
+function donation_form_form_submit($form, &$form_state) {
+  $gateway = Omnipay::create('Pin');
+  $gateway->setSecretKey('UsxOoKsJAKiPGvoZtXPjZw');
+  $gateway->purchase([
+    'email'       => 'customer@email.com',
+    'description' => 'Widgets',
+    'amount'      => 4999,
+    'currency'    => 'USD',
+    'token'       => 'card_nytGw7koRg23EEp9NTmz9w',
+    'ip_address'  => '1.2.3.4'
+  ])->send();
+
+	drupal_set_message(t('Blah ' . $form_state['values']['amount_preset']));
+}
+?>
