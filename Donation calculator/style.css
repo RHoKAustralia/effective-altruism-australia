@@ -314,3 +314,7 @@ th{padding:0;}html{box-sizing:border-box;-moz-osx-font-smoothing:grayscale;font-
 .amount__input.amount__input--titlebar {
   padding-left: 50px;
 }
+
+.amount__input.amount__input--toolbar {
+  padding-left: 50px;
+}
