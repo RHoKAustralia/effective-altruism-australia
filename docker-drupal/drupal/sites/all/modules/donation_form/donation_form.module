@@ -12,10 +12,28 @@ function donation_form_menu() {
     'access callback' => TRUE
   );
 
+  $items['admin/config/content/donate'] = array(
+    'title' => 'Configure donate',
+    'description' => 'Configuration for donation module',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('configure_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   return $items;
 }
 
 function donation_form($form, &$form_state) {
+ $publishable_key = variable_get('publishable_key', 'fail');
+
+ $form['publishable_key'] = array(
+   '#type' => 'hidden', //you can find a list of available types in the form api
+   '#title' => '',
+   '#size' => 25,
+   '#default_value' => $publishable_key
+ );
+
   $form['charity'] = array(
     '#type' => 'radios',
     '#title' => t("Select the charity you'd like to donate to"),
@@ -202,13 +220,15 @@ function donation_form_validate($form, &$form_state) {
 }
 
 function donation_form_submit($form, &$form_state) {
+  $secret_key = variable_get('secret_key', '');
+  $test_mode = variable_get('test_mode', '') == '1';
 
 //	drupal_set_message(t('Blah ' . $form_state['input']['card_token']));
 
   $gateway = Omnipay::create('Pin');
   $gateway->initialize(array(
-    'secretKey' => 'UsxOoKsJAKiPGvoZtXPjZw',
-    'testMode'  => true, // Or false when you are ready for live transactions
+    'secretKey' => $secret_key,
+    'testMode'  => $test_mode
   ));
   $response = $gateway->purchase([
     'email'       => $form_state['values']['email'],
@@ -233,5 +253,33 @@ function donation_form_submit($form, &$form_state) {
 //    echo $response->getMessage();
 	  drupal_set_message(t('Fail' . $response->getMessage()));
   }
+}
+
+function configure_form($form, &$form_state) {
+  $form['secret_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pin payments secret key'),
+    '#default_value' => variable_get('secret_key', ''),
+    '#size' => 22,
+    '#maxlength' => 22,
+    '#required' => TRUE,
+  );
+
+  $form['publishable_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pin payments publishable (AJAX) key'),
+    '#default_value' => variable_get('publishable_key', ''),
+    '#size' => 25,
+    '#maxlength' => 25,
+    '#required' => TRUE,
+  );
+
+  $form['test_mode'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Test Mode'),
+    '#default_value' => variable_get('test_mode', '1')
+  );
+
+  return system_settings_form($form);
 }
 ?>

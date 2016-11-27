@@ -2,18 +2,20 @@
 // 1. Wait for the page to load
 jQuery(function() {
     var $ = jQuery;
-    // 2. Create an API object with your publishable api key, and
-    // specifying 'test' or 'live'.
-    //
-    // Be sure to use your live publishable key with the live api, and
-    // your test publishable key with the test api.
-    var pinApi = new Pin.Api('pk_V6ZLzU1X6PwLobPUD5cwhQ', 'test');
 
     var form = $('form#donation-form'),
         submitButton = form.find(":submit"),
         errorContainer = form.find('.errors'),
         errorList = errorContainer.find('ul'),
-        errorHeading = errorContainer.find('h3');
+        errorHeading = errorContainer.find('h3'),
+        publishableKey = form.find('[name=publishable_key]').val();
+
+    // 2. Create an API object with your publishable api key, and
+    // specifying 'test' or 'live'.
+    //
+    // Be sure to use your live publishable key with the live api, and
+    // your test publishable key with the test api.
+    var pinApi = new Pin.Api(publishableKey, 'test');
 
     // 3. Add a submit handler to the form which calls Pin.js to
     // retrieve a card token, and then add that token to the form and
