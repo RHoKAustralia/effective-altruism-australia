@@ -4,18 +4,60 @@ use Omnipay\Omnipay;
 function donation_form_menu() {
   $items = array();
 
-  $items['examples/form-example'] = array( //this creates a URL that will call this form at "examples/form-example"
-    'title' => 'Example Form', //page title
-    'description' => 'A form to mess around with.',
+  $items['donate/start'] = array( //this creates a URL that will call this form at "examples/form-example"
+    'title' => 'Donate', //page title
+    'description' => 'Donate to Effective Altruism Australia.',
     'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
-    'page arguments' => array('donation_form_form'), //put the name of the form here
+    'page arguments' => array('donation_form'), //put the name of the form here
     'access callback' => TRUE
+  );
+
+  $items['admin/config/content/donate'] = array(
+    'title' => 'Configure donate',
+    'description' => 'Configuration for donation module',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('configure_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
   );
 
   return $items;
 }
 
-function donation_form_form($form, &$form_state) {
+function donation_form($form, &$form_state) {
+ $publishable_key = variable_get('publishable_key', 'fail');
+
+ $form['publishable_key'] = array(
+   '#type' => 'hidden', //you can find a list of available types in the form api
+   '#title' => '',
+   '#size' => 25,
+   '#default_value' => $publishable_key
+ );
+
+  $form['charity'] = array(
+    '#type' => 'radios',
+    '#title' => t("Select the charity you'd like to donate to"),
+    '#options' => array(
+      'Effective Altruism Australia' => t('Effective Altruism Australia'),
+      'Against Malaria Foundation' => t('Against Malaria Foundation'),
+      'Deworm the World Initiative' => t('Deworm the World Initiative'),
+      'Schistosomiasis Control Initiative' => t('Schistosomiasis Control Initiative'),
+      'GiveDirectly' => t('GiveDirectly'),
+      'GiveDirectly - Basic Income Research' => t('GiveDirectly - Basic Income Research')
+    )
+  );
+
+  $form['amount_preset'] = array(
+    '#type' => 'radios',
+    '#title' => t("Select the amount that you'd like to donate"),
+    '#options' => array(
+      '100.00' => t('$100'),
+      '250.00' => t('$250'),
+      '500.00' => t('$500'),
+      '1000.00' => t('$1000'),
+      'Other' => t('Other')
+    )
+  );
 
  $form['first_name'] = array(
     '#type' => 'textfield', //you can find a list of available types in the form api
@@ -41,15 +83,115 @@ function donation_form_form($form, &$form_state) {
     '#required' => TRUE, //make this field required
   );
 
-  $form['amount_preset'] = array(
-    '#type' => 'radios',
-    '#title' => t('Amount'),
+ $form['cc_number'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Credit card number',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['cc_name'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Name on the card',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['cc_ccv'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'CVV',
+    '#size' => 3,
+    '#maxlength' => 3,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['cc_month'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Expiry Month',
+    '#size' => 2,
+    '#maxlength' => 2,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['cc_year'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Expiry Year',
+    '#size' => 2,
+    '#maxlength' => 2,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['address_line_1'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Address Line 1',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['address_line_2'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Address Line 2',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => FALSE, //make this field required
+  );
+
+ $form['city'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'City',
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#required' => TRUE, //make this field required
+  );
+
+ $form['state'] = array(
+    '#type' => 'select',
+    '#title' => t("State/Territory"),
     '#options' => array(
-      t('$1'),
-      t('$5'),
-      t('$10'),
-      t('$50')
+      t('NSW'),
+      t('VIC'),
+      t('QLD'),
+      t('TAS'),
+      t('NT'),
+      t('WA'),
+      t('ACT'),
+      t('Other')
     )
+  );
+
+ $form['country'] = array(
+    '#type' => 'select',
+    '#title' => t("Country"),
+    '#options' => array(
+      t('Australia'),
+      t('US'),
+      t('UK')
+    )
+  );
+
+ $form['post_code'] = array(
+    '#type' => 'textfield', //you can find a list of available types in the form api
+    '#title' => 'Postcode',
+    '#size' => 8,
+    '#maxlength' => 8,
+    '#required' => TRUE, //make this field required
+  );
+
+  $form['source'] = array(
+    '#type' => 'select',
+    '#title' => t('How did you hear about us?'),
+    '#options' => array(
+      0 => t('Google'),
+      1 => t('Word-of-Mouth'),
+    )
+   );
+
+  $form['subscribe'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Send me the latest news and updates')
   );
 
   $form['submit_button'] = array(
@@ -71,25 +213,27 @@ function donation_form_form($form, &$form_state) {
   return $form;
 }
 
-function donation_form_form_validate($form, &$form_state) {
+function donation_form_validate($form, &$form_state) {
 //  if (!($form_state['values']['price'] > 0)){
 //    form_set_error('price', t('Price must be a positive number.'));
 //  }
 }
 
-function donation_form_form_submit($form, &$form_state) {
+function donation_form_submit($form, &$form_state) {
+  $secret_key = variable_get('secret_key', '');
+  $test_mode = variable_get('test_mode', '') == '1';
 
 //	drupal_set_message(t('Blah ' . $form_state['input']['card_token']));
 
   $gateway = Omnipay::create('Pin');
   $gateway->initialize(array(
-    'secretKey' => 'UsxOoKsJAKiPGvoZtXPjZw',
-    'testMode'  => true, // Or false when you are ready for live transactions
+    'secretKey' => $secret_key,
+    'testMode'  => $test_mode
   ));
   $response = $gateway->purchase([
-    'email'       => 'customer@email.com',
-    'description' => 'Widgets',
-    'amount'      => '100.00',
+    'email'       => $form_state['values']['email'],
+    'description' => $form_state['values']['charity'],
+    'amount'      => $form_state['values']['amount_preset'],
     'currency'    => 'AUD',
     'token'       => $form_state['input']['card_token'],
     'ip_address'  => '1.2.3.4'
@@ -98,7 +242,8 @@ function donation_form_form_submit($form, &$form_state) {
   if ($response->isSuccessful()) {
       // payment was successful: update database
 //      print_r($response);
-	  drupal_set_message(t('Success'));
+//	  drupal_set_message(t('Success'));
+	  drupal_goto('/donate/success');
   } elseif ($response->isRedirect()) {
       // redirect to offsite payment gateway
     $response->redirect();
@@ -108,5 +253,33 @@ function donation_form_form_submit($form, &$form_state) {
 //    echo $response->getMessage();
 	  drupal_set_message(t('Fail' . $response->getMessage()));
   }
+}
+
+function configure_form($form, &$form_state) {
+  $form['secret_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pin payments secret key'),
+    '#default_value' => variable_get('secret_key', ''),
+    '#size' => 22,
+    '#maxlength' => 22,
+    '#required' => TRUE,
+  );
+
+  $form['publishable_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pin payments publishable (AJAX) key'),
+    '#default_value' => variable_get('publishable_key', ''),
+    '#size' => 25,
+    '#maxlength' => 25,
+    '#required' => TRUE,
+  );
+
+  $form['test_mode'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Test Mode'),
+    '#default_value' => variable_get('test_mode', '1')
+  );
+
+  return system_settings_form($form);
 }
 ?>

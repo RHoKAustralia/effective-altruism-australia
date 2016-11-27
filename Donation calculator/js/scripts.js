@@ -155,7 +155,7 @@ function buildSelector(data) {
   // Append charities
   data.charities.forEach(function(charity){
     $(toolbar).append('<option class="charities__charity" value="' + charity.id + '" data-icon="&#x' + charity.logo + ';">' + charity.name);
-    $(titlebar).append('<span class="charities__charity charities__charity--titlebar" data-id="' + charity.id + '" data-icon="&#x' + charity.logo + ';">' + charity.name + '</span>');
+    $(titlebar).append('<span class="charities__charity charities__charity--titlebar" data-id="' + charity.id + '" data-icon="">' + charity.name + '</span>');
   });
 
   // Replace the default select
