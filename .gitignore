@@ -1,0 +1,6 @@
+
+# Macintosh cruft
+.DS_Store
+
+# Emacs backups
+*~
