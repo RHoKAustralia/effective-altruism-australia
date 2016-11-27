@@ -155,7 +155,7 @@ function buildSelector(data) {
   // Append charities
   data.charities.forEach(function(charity){
     $(toolbar).append('<option class="charities__charity" value="' + charity.id + '" data-icon="&#x' + charity.logo + ';">' + charity.name);
-    $(titlebar).append('<span class="charities__charity charities__charity--titlebar" data-id="' + charity.id + '" data-icon="">' + charity.name + '</span>');
+    $(titlebar).append('<span class="charities__charity charities__charity--titlebar" data-id="' + charity.id + '" data-icon="&#x' + charity.logo + ';">' + charity.name + '</span>');
   });
 
   // Replace the default select
@@ -214,7 +214,7 @@ function calcImpact(charity, amount) {
     exchangeRate = 1 / geoplugin_currencyConverter(1, false);
     localisedAmount = amount * exchangeRate;
   } else {
-    localisedAmount = amount * 0.75;
+    localisedAmount = amount;
   }
 
   // Calculate usable donation
@@ -276,7 +276,7 @@ function writeCharity(charity, elements){
 function writeResults(charity, impacts, elements){
 
   var currencySymbol = '$',
-      currencyCode = 'AUD';
+      currencyCode = 'USD';
 
   if (typeof geoplugin_currencySymbol === 'function') {
     currencySymbol = geoplugin_currencySymbol();
@@ -357,7 +357,7 @@ $(function(){
   });
 
   // Localise currency symbol
-  var currencySymbol = 'A$';
+  var currencySymbol = '$';
   if (typeof geoplugin_currencySymbol === 'function') {
     $('<textarea />').html(geoplugin_currencySymbol()).text();
   }
