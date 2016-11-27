@@ -1,0 +1,14 @@
+Welcome to the Effective Altruism Australia donation form read-me file!
+
+You should be able to use this directory/folder to demonstrate a design for the website's donation page.  
+Open donate.html and you should see a donation form.  By cliking in what I hope are the obvious places, 
+You should be able to demonstrate it and the page it leads to (donation2.html) and a third donation page.
+
+Please ignore or maybe remove the following files.  
+- donation form 1(1).html
+- donation form 1.html
+- donation form 2.html
+
+Doing the above with files should work.  At the time of writing, using a server did not work.  
+
+Support? Questions?  See dvincent@entasker.com.  

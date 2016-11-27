@@ -13,7 +13,7 @@
     "pricePoints" :   [
         {
         "price" : 3.000,
-        "iconURL" : "/img/results/amf-net.png",
+        "iconURL" : "./img/results/amf-net.png",
         "color" : "green",
         "text" :   {
           "single" : "Provide a bednet to protect those living in malaria-stricken areas from infected mosquitos.",
@@ -22,7 +22,7 @@
         },
         {
         "price" : 1.660,
-        "iconURL" : "/img/results/sci-student.png",
+        "iconURL" : "./img/results/sci-student.png",
         "color" : "red",
         "joiner" : "or",
         "text" :   {
@@ -32,7 +32,7 @@
         },
         {
         "price" : 3337.000,
-        "iconURL" : "/img/results/life-saved.png",
+        "iconURL" : "./img/results/life-saved.png",
         "color" : "red",
         "joiner" : "or",
         "text" :   {
@@ -56,7 +56,7 @@
     "pricePoints" :   [
         {
         "price" : 0.100,
-        "iconURL" : "/img/results/sci-student.png",
+        "iconURL" : "./img/results/sci-student.png",
         "color" : "red",
         "text" :   {
           "single" : "Deworm a child",
@@ -65,7 +65,7 @@
         },
         {
         "price" : 0.840,
-        "iconURL" : "/img/results/ea-water.png",
+        "iconURL" : "./img/results/ea-water.png",
         "color" : "blue",
         "joiner" : "or",
         "text" :   {
@@ -75,7 +75,7 @@
         },
         {
         "price" : 1.000,
-        "iconURL" : "/img/results/pif-interventions.png",
+        "iconURL" : "./img/results/pif-interventions.png",
         "color" : "green",
         "joiner" : "or",
         "text" :   {
@@ -98,7 +98,7 @@
     "pricePoints" :   [
         {
         "price" : 1.000,
-        "iconURL" : "/img/results/gd-household.png",
+        "iconURL" : "./img/results/gd-household.png",
         "color" : "green",
         "text" :   {
           "single" : "Provide one dollar directly to recipients to use as they wish. An independent impact evaluation has shown that GiveDirectly's cash transfers increase recipients' assets, food security and mental health.",
@@ -107,7 +107,7 @@
         },
         {
         "price" : 1000.000,
-        "iconURL" : "/img/results/gd-family.png",
+        "iconURL" : "./img/results/gd-family.png",
         "color" : "green",
         "joiner" : "or",
         "text" :   {
@@ -130,7 +130,7 @@
     "pricePoints" :   [
         {
         "price" : 0.800,
-        "iconURL" : "/img/results/dwti.png",
+        "iconURL" : "./img/results/dwti.png",
         "color" : "red",
         "text" :   {
           "single" : "Protect a child from schistosomiasis for one year, preventing life-threatening conditions including bladder cancer, kidney malfunction, spleen damage, and anaemia.",
