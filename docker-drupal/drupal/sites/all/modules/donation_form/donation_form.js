@@ -9,7 +9,7 @@ jQuery(function() {
     // your test publishable key with the test api.
     var pinApi = new Pin.Api('pk_V6ZLzU1X6PwLobPUD5cwhQ', 'test');
 
-    var form = $('form#donation-form-form'),
+    var form = $('form#donation-form'),
         submitButton = form.find(":submit"),
         errorContainer = form.find('.errors'),
         errorList = errorContainer.find('ul'),
@@ -30,33 +30,33 @@ jQuery(function() {
         submitButton.attr({disabled: true});
 
         // Fetch details required for the createToken call to Pin Payments
-        // var card = {
-        //     number: $('#cc-number').val(),
-        //     name: $('#cc-name').val(),
-        //     expiry_month: $('#cc-expiry-month').val(),
-        //     expiry_year: $('#cc-expiry-year').val(),
-        //     cvc: $('#cc-cvc').val(),
-        //     address_line1: $('#address-line1').val(),
-        //     address_line2: $('#address-line2').val(),
-        //     address_city: $('#address-city').val(),
-        //     address_state: $('#address-state').val(),
-        //     address_postcode: $('#address-postcode').val(),
-        //     address_country: $('#address-country').val()
-        // };
-
         var card = {
-            number: '4200000000000000',
-            name: 'Alex Gilleran',
-            expiry_month: '02',
-            expiry_year: '19',
-            cvc: '123',
-            address_line1: '123 Main St',
-            address_line2: '',
-            address_city: 'Sydney',
-            address_state: 'NSW',
-            address_postcode: '2000',
-            address_country: 'Australia'
+            number: $('#edit-cc-number').val(),
+            name: $('#edit-cc-name').val(),
+            expiry_month: $('#edit-cc-month').val(),
+            expiry_year: $('#edit-cc-year').val(),
+            cvc: $('#edit-cc-ccv').val(),
+            address_line1: $('#edit-address-line-1').val(),
+            address_line2: $('#edit-address-line-2').val(),
+            address_city: $('#edit-city').val(),
+            address_state: $('#edit-state option:selected').text(),
+            address_postcode: $('#edit-post-code').val(),
+            address_country: $('#edit-country option:selected').text()
         };
+
+        // var card = {
+        //     number: '4200000000000000',
+        //     name: 'Alex Gilleran',
+        //     expiry_month: '02',
+        //     expiry_year: '19',
+        //     cvc: '123',
+        //     address_line1: '123 Main St',
+        //     address_line2: '',
+        //     address_city: 'Sydney',
+        //     address_state: 'NSW',
+        //     address_postcode: '2000',
+        //     address_country: 'Australia'
+        // };
 
         // Request a token for the card from Pin Payments
         pinApi.createCardToken(card).then(handleSuccess, handleError).done();
