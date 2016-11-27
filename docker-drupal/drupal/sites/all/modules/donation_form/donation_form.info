@@ -1,3 +1,6 @@
 core = "7.x"
-description = "An example module used to learn module development and forms creation."
-name = "Form Example Module"
+description = "A form to accept donations via Pin Payments."
+name = "Pin payments donation"
+
+; NEW LINE
+configure = admin/config/content/donate
